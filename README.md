@@ -33,3 +33,17 @@ In this equation, Ws is the width of the bounding box, Hs is the height of the b
 (alpha)t=5/(Wt+Ht)
 
 After, the authors divide the foods into three categories based on shape: ellipsoid, column, irregular. Different volume estimation formula will be selected for different types of food, according to Equation 3. HS is the height of side view PS and LkS is the number of foreground pixels in row k (k ∈ 1,2,…,HS). LMAX = max(Lk ,…,Lk ), it records the maximum number of foreground pixels in PS. ß is a compensation factor (default value = 1.0). After that, for each food type there will be a unique value.
+
+E. Calorie Estimation
+
+After estimating the volume, the next step is to estimate each food’s mass. It can be calculated in Equation 4, Where v (cm^3) represents the volume of current food, and ρ (g/cm^3) represents its density value
+m=p*v
+Then the calorie of the food can be obtained with Equation 5.
+C=c*m
+Where m(g) represents the mass of current food and c(Kcal/g) represents its calories per gram.
+
+Conclusion
+
+This paper gives us a calorie estimation method, and the results of the experiments show promise.
+
+Since the images are taken from smartphones, and the image processing methods used here are well-developed, this proposed method can be easily integrated into health apps as an engineering solution. Nevertheless, from a research perspective, I think this paper has two limitations. First, there is no comparison with prior work. The authors did provide a literature review in the introduction, but I think they should have compared their results with the results in those prior work. If this approach can achieve a better performance, then we can say that this paper provides a more effective way. Unfortunately we cant’s say that, because the author didn’t provide a series of comparison experiment. Secondly, I am not sure if the dataset is accurate or big enough. The authors just say that they take the images from a smartphone, but they didn’t tell whether there is a standard to collect the images. Like the light intensity, and the number of pixels. Besides, in Table 2 we can see that the mean error is still large, which indicates that there is some room to make the mean error much smaller.
