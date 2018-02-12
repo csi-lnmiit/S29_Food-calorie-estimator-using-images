@@ -26,3 +26,10 @@ D. Volume Estimation
 
 To estimate the volume, the authors calculate the scale factors based on calibration objects. The authors use a 1 CNY coin to show the specific process of calculating the volume. The diameter of the coin is 2.5 cm, and the side view’s scale factor was calculated with Equation 1.
 
+(alpha)s=5/(Ws+Hs)
+
+In this equation, Ws is the width of the bounding box, Hs is the height of the bounding box. Similarly, the top view’s scale can be calculated with Equation 2.
+
+(alpha)t=5/(Wt+Ht)
+
+After, the authors divide the foods into three categories based on shape: ellipsoid, column, irregular. Different volume estimation formula will be selected for different types of food, according to Equation 3. HS is the height of side view PS and LkS is the number of foreground pixels in row k (k ∈ 1,2,…,HS). LMAX = max(Lk ,…,Lk ), it records the maximum number of foreground pixels in PS. ß is a compensation factor (default value = 1.0). After that, for each food type there will be a unique value.
