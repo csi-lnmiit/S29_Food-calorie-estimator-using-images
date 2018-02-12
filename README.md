@@ -1,48 +1,48 @@
 # S29_Food-calorie-estimator-using-images
 
-Due to the improvement in people’s standards of living, obesity rates are increasing at an alarming speed, and this is reflective to the risks in people’s health. People need to control their daily calorie intake by eating healthier foods, which is the most basic method to avoid obesity. However, although food packaging comes with nutrition (and calorie) labels, it’s still not very convenient for people to reference. Thus, scientists started to use machine learning algorithms in computer vision to help people determine the caloric value in the food they eat. During the 2015 Rework Deep Learning Summit in Boston, Google scientist Kevin Murphy presented a deep learning algorithm that was used to analyze static food image. By analyzing the composition of the food in picture, the algorithm can calculate how much calories the dish has.
+Due to the advance in people’s standards of living, fat rates square measure increasing at associate forbidding speed, and this can be reflective to the risks in people’s health. individuals ought to management their daily calorie intake by consumption healthier foods, that is that the most elementary technique to avoid fat. However, though food packaging comes with nutrition (and calorie) labels, it’s still not terribly convenient for individuals to reference. Thus, scientists began to use machine learning algorithms in laptop vision to assist individuals verify the caloric worth within the food they eat. throughout the 2015 work Deep Learning Summit in capital of Massachusetts, Google human Kevin white potato conferred a deep learning algorithmic rule that was wont to analyze static food image. By analyzing the composition of the food in image, the algorithmic rule will calculate what quantity calories the dish has.
 
-This paper is trying to provide a more efficient way of estimating calories. First, it needs the top view and side view images of the food being analyzed. Then, it will use Faster R-CNN to detect the food and calibration object, after which, a GrabCur algorithm is used to determine the food’s contour. After estimating the volume of food, the authors can finally estimate the amount of calories.
+This paper is attempting to produce a a lot of economical approach of estimating calories. First, it desires the highest read and aspect pictures of the food being analyzed. Then, it'll use quicker R-CNN to sight the food and standardisation object, once that, a GrabCur algorithmic rule is employed to work out the food’s contour. once estimating the amount of food, the authors will finally estimate the number of calories.
 
 INTRODUCTION
 
-When people’s Body Mass Index (BMI) is over 30 (kg/m2), they are generally considered to be obese. High BMI can increase the risk of illnesses like heart disease [1]. The main reason of obesity is due to the imbalance between the amount of caloric intake (consumption) and energy output (expenditure). Because of unwillingness to record and track, lack of related nutritional information or other reasons, patients often experience trouble in controlling the amount of calories they consume. There are lots of proposed methods to estimate calories based on computer vision [2, 3, 4, 5], but after the authors’ analysis, the accuracy of detection and volume estimation still need to be improved. In this paper, the main difference from other similar approaches is that it requires an input of two images, and the use Faster R-CNN to detect the object and GrabCut algorithm to obtain each food’s contour. After that, the authors can estimate each food’s volume and calories.
+When people’s Body Mass Index (BMI) is over thirty (kg/m2), they're usually thought-about to be corpulent. High BMI will increase the chance of diseases like cardiopathy [1]. the most reason of fat is attributable to the imbalance between the number of caloric intake (consumption) and energy output (expenditure). due to disposition to record and track, lack of connected nutritionary info or alternative reasons, patients typically expertise hassle in dominant the number of calories they consume. There square measure countless projected strategies to estimate calories supported laptop vision [2, 3, 4, 5], however once the authors’ analysis, the accuracy of detection and volume estimation still ought to be improved. during this paper, the most distinction from alternative similar approaches is that it needs associate input of 2 pictures, and also the use quicker R-CNN to sight the item and GrabCut algorithmic rule to get every food’s contour. After that, the authors will estimate every food’s volume and calories.
 
-Material and Methods
+Material and strategies
 
-A. Calorie Estimation Method Based On Deep Learning
+A. Calorie Estimation technique supported Deep Learning
 
-This method is shown in Figure 1. As mentioned before, the process of estimating calories requires two images from top and side, and each image should include the calibration object. Here, the authors choose Faster Region-based Convolutional Neural Networks (Faster R-CNN) [5] to detect objects, and GrabCut algorithm [6] as the segmentation algorithm.
+This technique is shown in Figure one. As mentioned before, the method of estimating calories needs 2 pictures from prime and facet, and every image ought to embrace the standardisation object. Here, the authors select quicker Region-based Convolutional Neural Networks (Faster R-CNN) [5] to sight objects, and GrabCut algorithmic rule [6] because the segmentation algorithmic rule.
 
-B. Deep Learning Based Objection Detection
+B. Deep Learning based mostly Objection Detection
 
-The authors chose Faster R-CNN instead of using semantic segmentation method such as Fully Convolutional Networks (FCN). Here, after the images are inputted as RGB channels, the authors can get a series of bounding boxes, which means the class if judged.
+The authors selected quicker R-CNN rather than victimisation linguistics segmentation technique like absolutely Convolutional Networks (FCN). Here, once the pictures square measure inputted as RGB channels, the authors will get a series of bounding boxes, which implies the category if judged.
 
 C. Image Segmentation
 
-This process uses an image processing approach to segment each bounding box. As mentioned above, the bounding boxes around the object that GrabCut needs can be provided by Faster R-CNN. After segmentation, we can get a series of food images stored in matrix, but with the the values of the background pixels being replaced by zeros. This will leave only the foreground pixels.
+This method uses a picture process approach to section every bounding box. As mentioned on top of, the bounding boxes round the object that GrabCut desires are often provided by quicker R-CNN. once segmentation, we will get a series of food pictures keep in matrix, however with the the values of the background pixels being replaced by zeros. this can leave solely the foreground pixels.
 
 D. Volume Estimation
 
-To estimate the volume, the authors calculate the scale factors based on calibration objects. The authors use a 1 CNY coin to show the specific process of calculating the volume. The diameter of the coin is 2.5 cm, and the side view’s scale factor was calculated with Equation 1.
+To estimate the amount, the authors calculate the dimensions factors supported standardisation objects. The authors use a one CNY coin to indicate the particular method of conniving the amount. The diameter of the coin is two.5 cm, and also the facet view’s multiplier factor was calculated with Equation one.
 
 (alpha)s=5/(Ws+Hs)
 
-In this equation, Ws is the width of the bounding box, Hs is the height of the bounding box. Similarly, the top view’s scale can be calculated with Equation 2.
+In this equation, Ws is that the breadth of the bounding box, Hs is that the height of the bounding box. Similarly, the highest view’s scale are often calculated with Equation two.
 
 (alpha)t=5/(Wt+Ht)
 
-After, the authors divide the foods into three categories based on shape: ellipsoid, column, irregular. Different volume estimation formula will be selected for different types of food, according to Equation 3. HS is the height of side view PS and LkS is the number of foreground pixels in row k (k ∈ 1,2,…,HS). LMAX = max(Lk ,…,Lk ), it records the maximum number of foreground pixels in PS. ß is a compensation factor (default value = 1.0). After that, for each food type there will be a unique value.
+After, the authors divide the foods into 3 classes supported shape: ellipsoid, column, irregular. completely different volume estimation formula are elect for various forms of food, in keeping with Equation three. HS is that the height of aspect notation and LkS is that the variety of foreground pixels in row k (k ∈ one,2,…,HS). LMAX = max(Lk ,…,Lk ), it records the utmost variety of foreground pixels in notation. ß could be a compensation issue (default worth = one.0). After that, for every food kind there'll be a singular worth.
 
 E. Calorie Estimation
 
-After estimating the volume, the next step is to estimate each food’s mass. It can be calculated in Equation 4, Where v (cm^3) represents the volume of current food, and ρ (g/cm^3) represents its density value
+After estimating the amount, consecutive step is to estimate every food’s mass. It are often calculated in Equation four, wherever v (cm^3) represents the amount of current food, and ρ (g/cm^3) represents its density worth
 m=p*v
-Then the calorie of the food can be obtained with Equation 5.
+Then the calorie of the food are often obtained with Equation five.
 C=c*m
 Where m(g) represents the mass of current food and c(Kcal/g) represents its calories per gram.
 
 Conclusion
 
 
-Since the images are taken from smartphones, and the image processing methods used here are well-developed, this proposed method can be easily integrated into health apps as an engineering solution. Nevertheless, from a research perspective, I think this paper has two limitations. First, there is no comparison with prior work. The authors did provide a literature review in the introduction, but I think they should have compared their results with the results in those prior work. If this approach can achieve a better performance, then we can say that this paper provides a more effective way. Unfortunately we cant’s say that, because the author didn’t provide a series of comparison experiment. Secondly, I am not sure if the dataset is accurate or big enough. The authors just say that they take the images from a smartphone, but they didn’t tell whether there is a standard to collect the images. Like the light intensity, and the number of pixels. Besides, in Table 2 we can see that the mean error is still large, which indicates that there is some room to make the mean error much smaller.
+Since the pictures square measure taken from smartphones, and also the image process strategies used here square measure well-developed, this projected technique are often simply integrated into health apps as associate engineering resolution. however, from a look perspective, i feel this paper has 2 limitations. First, there's no comparison with previous work. The authors did offer a literature review within the introduction, however i feel they must have compared their results with the leads to those previous work. If this approach can do a higher performance, then we will say that this paper provides a simpler approach. sadly we tend to cant’s say that, as a result of the author didn’t offer a series of comparison experiment. Secondly, i'm unsure if the dataset is correct or large enough. The authors simply say that they take the pictures from a smartphone, however they didn’t tell whether or not there's a regular to gather the pictures. just like the strength, and also the variety of pixels. Besides, in Table two we will see that the mean error remains massive, that indicates that there's some area to create the mean error a lot of smaller.
